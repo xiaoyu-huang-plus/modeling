@@ -1,0 +1,516 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University/School Laboratory Report
+% LaTeX Template
+% Version 3.1 (25/3/14)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Linux and Unix Users Group at Virginia Tech Wiki 
+% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+\usepackage{times} % Uncomment to use the Times New Roman font
+\usepackage{bm}
+
+\usepackage{amssymb}
+\usepackage{nomencl}
+\usepackage{makeidx}
+\makenomenclature
+
+\usepackage{etoolbox}
+\renewcommand\nomgroup[1]{%
+  \item[\bfseries
+  \ifstrequal{#1}{A}{Variables}{%
+  \ifstrequal{#1}{B}{Constants}{% 
+  \ifstrequal{#1}{C}{Subscripts}{%
+  \ifstrequal{#1}{D}{Other Symbols}{}}}}%
+]}
+ 
+% This will add the units
+%----------------------------------------------
+\newcommand{\nomunit}[1]{%
+\renewcommand{\nomentryend}{\hspace*{\fill}#1}}
+%----------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Control-Oriented Modeling for a Tractor-Trailer System} % Title
+
+\author{Xiaoyu \textsc{Huang}} % Author name
+
+\date{\today} % Date for the report
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+
+\begin{center}
+\begin{tabular}{l r}
+Date Drafted: & June 17, 2019 \\ % Date the experiment was performed
+Partners: & Xiaoyu Huang \\ % Partner names
+& Xxx XXX \\
+\end{tabular}
+\end{center}
+
+\begin{abstract}
+This report presents a control-oriented model for a tractor-trailer system.
+\end{abstract}
+
+% go to the latex folder then run "makeindex HDV_Modeling.nlo -s nomencl.ist -o HDV_Modeling.nls"
+\nomenclature[A]{$a_{x1}$}{Longitudinal acceleration of the tractor 
+  \nomunit{$m/s^2$}}
+\nomenclature[A]{$a_{x2}$}{Longitudinal acceleration of the trailer 
+  \nomunit{$m/s^2$}}
+\nomenclature[A]{$a_{y1}$}{Lateral acceleration of the tractor 
+  \nomunit{$m/s^2$}}
+\nomenclature[A]{$a_{y2}$}{Lateral acceleration of the trailer 
+  \nomunit{$m/s^2$}}
+\nomenclature[A]{$\dot{x}_1$}{Longitudinal velocity of tractor in the tractor's frame
+  \nomunit{$m/s$}}
+\nomenclature[A]{$\dot{x}_2$}{Longitudinal velocity of trailer in the trailer's frame
+  \nomunit{$m/s$}}
+\nomenclature[A]{$\dot{y}_1$}{Lateral velocity of tractor in the tractor's frame
+  \nomunit{$m/s$}}
+\nomenclature[A]{$\dot{y}_2$}{Lateral velocity of trailer in the trailer's frame
+  \nomunit{$m/s$}}
+\nomenclature[A]{$\psi_1$}{Yaw angle of the tractor
+  \nomunit{$rad$}}
+\nomenclature[A]{$\psi_2$}{Yaw angle of the trailer
+  \nomunit{$rad$}}
+\nomenclature[A]{$F_{xi}$}{Longitudinal force of the ith axle ($i = 1, 2, ..., 5$)
+  \nomunit{$N$}}
+\nomenclature[A]{$F_{yi}$}{Lateral force of the ith axle ($i = 1, 2, ..., 5$) 
+  \nomunit{$N$}}
+\nomenclature[A]{$F_r$}{Lumped resistance force
+  \nomunit{$N$}}
+\nomenclature[A]{$F_a$}{Aerodynamic drag force
+  \nomunit{$N$}}
+\nomenclature[A]{$F_f$}{Rolling resistance force
+  \nomunit{$N$}}
+\nomenclature[A]{$F_g$}{Component of gravitational force on the slope
+  \nomunit{$N$}}
+\nomenclature[A]{$M_{z1}$}{Yaw moment on the tractor
+  \nomunit{$Nm$}}
+\nomenclature[A]{$M_{z2}$}{Yaw moment on the trailer
+  \nomunit{$Nm$}}
+\nomenclature[A]{$\Delta$}{Articulation angle between tractor and trailer
+  \nomunit{$rad$}}
+\nomenclature[A]{$\delta$}{Lumped steering angle
+  \nomunit{$rad$}}
+\nomenclature[A]{$\alpha_i$}{Lumped tire slip angle of the ith axle ($i = 1, 2, ..., 5$)
+  \nomunit{$rad$}}
+%\nomenclature[A, 01]{$g$}{Gravitational Constant 
+%  \nomunit{$6.67384 \times 10^{-11}\, N \cdot m^2/kg^2$}}
+\nomenclature[B]{$g$}{Gravitational Acceleration 
+  \nomunit{$9.81\, m/s^2$}} 
+%\nomenclature[B]{$\mathbb{R}$}{Real Numbers}
+\nomenclature[B]{$m_1$}{Tractor mass 
+  \nomunit{$9,000\, kg$}}
+\nomenclature[B]{$m_2$}{Trailer mass 
+  \nomunit{$6,800\, kg$}}
+\nomenclature[B]{$I_1$}{Tractor yaw moment of inertia 
+  \nomunit{$52,000\, kg \cdot m^2$}}
+\nomenclature[B]{$I_2$}{Trailer yaw moment of inertia 
+  \nomunit{$39,290\, kg \cdot m^2$}}
+\nomenclature[B]{$l_1$}{Distance from tractor CG to the steering axle
+  \nomunit{$2.59\, m$}}
+\nomenclature[B]{$l_2$}{Distance from tractor CG to the front tandem axle
+  \nomunit{$2.70\, m$}}
+\nomenclature[B]{$l_3$}{Distance from tractor CG to the rear tandem axle
+  \nomunit{$4.02\, m$}}
+\nomenclature[B]{$l_4$}{Distance from trailer CG to the first trailer rear axle
+  \nomunit{$4.17\, m$}}
+\nomenclature[B]{$l_5$}{Distance from trailer CG to the second trailer rear axle
+  \nomunit{$5.41\, m$}}
+\nomenclature[B]{$l_6$}{Distance from the 5th wheel hitch to tractor CG
+  \nomunit{$3.36\, m$}}
+\nomenclature[B]{$l_7$}{Distance from the 5th wheel hitch to trailer CG
+  \nomunit{$6.32\, m$}}
+%\nomenclature[C]{$V$}{Constant Volume}
+%\nomenclature[C]{$\rho$}{Friction Index}
+%\nomenclature[D]{$V$}{Constant Volume}
+%\nomenclature[D]{$\rho$}{Friction Index}
+\printnomenclature 
+Values are from \cite{Alexander1996}.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+To derive the dynamic model for a tractor-trailer system (as defined in \ref{definitions}):
+
+\subsection{Objectives}
+% If you have more than one objective, uncomment the below:
+%\begin{description}
+%\item[First Objective] \hfill \\
+%Objective 1 text
+%\item[Second Objective] \hfill \\
+%Objective 2 text
+%\end{description}
+
+\subsection{Definitions}
+\label{definitions}
+\begin{description}
+\item[Tractor-Trailer]
+The vehicle system as shown in Fig.\ref{fig-force} is composed of two parts: tractor in the front to provide towing power, and trailer in the back to carry freight.
+%\item[Dynamics]
+%The system states that is a function of time. 
+\item[Degree of Freedom (DOF)]
+6-DOF to 4-DOF due to hitch constraints. 
+\item[Coordinate System]
+
+Global frame (inertial frame)
+
+Vehicle local frame (non-inertial frame). Default is forward-left-up.
+
+Tire frame (non-inertial frame).
+
+\item[State-Space Representation]
+Used in control design, especially for linear systems.
+
+\item[Lagrange's Equation]
+\item[Newton-Euler Equations] Translational and rotational motions.
+
+
+%\item[Acceleration]
+%Acceleration in the inertial frame and in the local frame.
+
+\item[Path-Following Control]
+In contrast, there is trajectory-tracking control.
+
+\end{description}
+
+
+\subsection{Assumptions}
+
+\begin{description}
+\item[Small Angle Approximation]
+Angle smaller than 10 degrees can use small angle approximation \cite{Rajamani2011}.
+\begin{align*} 
+\sin{\theta} &\approx \tan{\theta} \approx \theta \\
+\cos{\theta} &\approx 1
+\end{align*}
+\item[Bicycle Model]
+Left and right wheels are lumped when deriving lateral tire forces. 
+%\item[CG Location]
+
+\end{description}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Modeling}
+
+%\begin{tabular}{ll}
+%Mass of empty crucible & \SI{7.28}{\gram}\\
+%Mass of crucible and magnesium before heating & \SI{8.59}{\gram}\\
+%Mass of crucible and magnesium oxide after heating & \SI{9.46}{\gram}\\
+%Balance used & \#4\\
+%Magnesium from sample bottle & \#1
+%\end{tabular}
+
+\subsection{Vehicle Dynamics}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Tractor-Trailer-Force.png}
+\caption{Tractor-Trailer Force System}\label{fig-force}
+\end{center}
+\end{figure}
+
+Equations of the longitudinal motions are
+\begin{eqnarray}
+m_1 a_{x1} &=& m_1 (\ddot{x}_1 -  \dot{y}_1 \dot{\psi}_1) = F_{x1} + F_{x2} + F_{x3} + F_{xh} - F_{r1}, \label{eq-tractor-lon}\\
+m_2 a_{x2} &=& m_2 (\ddot{x}_2 -  \dot{y}_2 \dot{\psi}_2) = F_{x4} + F_{x5} - F_{xh} - F_{r2}, \label{eq-trailer-lon}
+\end{eqnarray}
+where, $F_{r1}$ and $F_{r2}$ are lumped resistance forces on the tractor and the trailer, respectively.
+\begin{equation}
+F_r = F_f + F_a + F_g \label{eq-Fr}
+\end{equation}
+Equations of the tractor's lateral and yaw motions:
+\begin{eqnarray}
+m_1 a_{y1} &=& m_1 (\ddot{y}_1 +  \dot{x}_1 \dot{\psi}_1) = F_{y1} + F_{y2} + F_{y3} + F_{yh} \label{eq-tractor-lat}\\
+I_1\ddot{\psi}_1 &=& l_1 F_{y1} - l_2 F_{y2} - l_3 F_{y3} - l_6 F_{yh} + M_{z1}\label{eq-tractor-yaw}
+\end{eqnarray}
+Equations of the trailer's lateral and yaw motions:
+\begin{eqnarray}
+m_2 a_{y2} &=& m_2 (\ddot{y}_2 +  \dot{x}_2 \dot{\psi}_2) = F_{y4} + F_{y5} - F_{yh} \label{eq-trailer-lat}\\
+I_2\ddot{\psi}_2 &=& -l_4 F_{y4} - l_5 F_{y5} - l_7 F_{yh} + M_{z2}\label{eq-trailer-yaw}
+\end{eqnarray}
+ cv
+Note that the additional yaw moment terms $M_{zi}$ are generated by differential braking, active Limited Slip Differential (LSD), or other devices.
+
+\textbf{Remark}: What are the directions of the hitch forces $F_{hx}$ and $F_{hy}$? They are defined in this report to be aligned with the tractor's coordinate frame, as shown in Fig.\ref{fig-hitch-force}. Note that in this case hitch point can be viewed as a virtual steering axle for the trailer.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Hitch-Force.png}
+\caption{Hitch Force}\label{fig-hitch-force}
+\end{center}
+\end{figure}
+
+
+
+\subsection{Kinematics}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Tractor-Trailer-Kinematics.png} % Include the image placeholder.png
+\caption{Tractor-Trailer Positions}\label{fig-Kinematics}
+\end{center}
+\end{figure}
+
+For path following or trajectory tracking, we need to get the location of the tractor-trailer. The CG positions of both the tractor and the trailer in the global frame can be obtained from their velocities and yaw angles, as shown in Fig.\ref{fig-Kinematics}. ($i$ stands for 1: tractor, or 2: trailer)
+\begin{eqnarray}
+\dot{X}_i &=& \dot{x}_i \cos{\psi_i} - \dot{y}_i \sin{\psi_i}  \label{eq-VX}\\
+\dot{Y}_i &=& \dot{x}_i \sin{\psi_i} + \dot{y}_i \cos{\psi_i} \label{eq-VY}
+\end{eqnarray}
+
+There is not much difference between the tractor-trailer system and a regular car, other than that the CG locations are correlated by the hitch connection like a robot arm. The geometric constraints imposed by the hitch position are summarized in the following:
+\begin{eqnarray}
+X_1 - l_6\cos{\psi_1} &=& X_2 + l_7\cos{\psi_2}  \label{eq-constr-X}\\
+Y_1 - l_6\sin{\psi_1} &=& Y_2 + l_7\sin{\psi_2} \label{eq-constr-Y}\\
+\Delta &=& \psi_1 - \psi_2 \label{eq-constr-ang}
+\end{eqnarray}
+
+Taking derivatives for both sides of \eqref{eq-constr-X} and \eqref{eq-constr-Y}, and substituting in the expressions in \eqref{eq-VX}, \eqref{eq-VY}, \eqref{eq-constr-ang} results in:
+\begin{align*} 
+\dot{x}_1 &= \dot{x}_2 \cos{\Delta} + (\dot{y}_2 + l_7\dot{\psi}_2) \sin{\Delta}\\
+\dot{y}_2 &=  - l_7 \dot{\psi}_2 + (\dot{y}_1 - l_6 \dot{\psi}_1) \cos{\Delta} + \dot{x}_1 \sin{\Delta}
+\end{align*}
+
+Small angle approximation renders the following equations.
+\begin{eqnarray}
+\dot{x}_1 &=& \dot{x}_2 \ + (\dot{y}_2 + l_7\dot{\psi}_2) \Delta \label{eq-hitch-vx}\\
+\dot{y}_2 &=& -l_7 \dot{\psi}_2 + \dot{y}_1 - l_6 \dot{\psi}_1 + \dot{x}_1\Delta \label{eq-hitch-vy}\\
+\ddot{y}_2 +  \dot{x}_2 \dot{\psi}_2 &=& \ddot{y}_1 +  \dot{x}_1 \dot{\psi}_1 -  l_6 \ddot{\psi}_1 - l_7 \ddot{\psi}_2  \label{eq-hitch-ay}
+\end{eqnarray}
+where, the velocities terms are all in the tractor's and the trailer's local frames. It can be seen that \eqref{eq-hitch-vx} restricts the longitudinal motion, and \eqref{eq-hitch-vy} restricts the lateral/yaw motions of the tractor-trailer system, respectively. Lateral acceleration constraint \eqref{eq-hitch-ay} is derived following the similar philosophy as \eqref{eq-hitch-vy}, yet with further simplification by neglecting the $a_{x1}$ term, since $a_{x1}$ is usually small for a heavy-duty tractor-trailer system \cite{Alexander1996}\cite{Hac2008}.
+
+To avoid obstacles, certain "critical" points, e.g., rear left and rear right corners of the trailer, may need to be defined and their trajectories tracked.
+
+\subsection{Tire Model}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{placeholder} % Include the image placeholder.png
+\caption{Placeholder for Side-Slip Angle}\label{fig-slip-angle}
+\end{center}
+\end{figure}
+
+Lumping the left and right wheels and applying small angle approximation, tire slip angles for all five axles are calculated in the following.
+
+Tractor front (steering) axle (as shown in Fig.\ref{fig-slip-angle}):
+\begin{equation}
+\alpha_1 = \delta - \frac{\dot{y}_1 + l_1 \dot{\psi}_1}{\dot{x}_1} \label{eq-slip-ang-1}\\
+\end{equation}
+There is another enhanced model for the tractor front axle, as introduced in \cite{Alexander1996}.  In this case, the tire slip angle and its derivative of the tractor front axle will be treated as another two states.
+
+Tractor rear axles:
+\begin{eqnarray}
+\alpha_2 &=& -  \frac{\dot{y}_1 - l_2 \dot{\psi}_1}{\dot{x}_1} \label{eq-slip-ang-2}\\
+\alpha_3 &=& -  \frac{\dot{y}_1 - l_3 \dot{\psi}_1}{\dot{x}_1} \label{eq-slip-ang-3}
+\end{eqnarray}
+Trailer axles:
+\begin{eqnarray}
+\alpha_4 &=& -  \frac{\dot{y}_2 - l_4 \dot{\psi}_2}{\dot{x}_2} \label{eq-slip-ang-4}\\
+\alpha_5 &=& -  \frac{\dot{y}_2 - l_5 \dot{\psi}_2}{\dot{x}_2} \label{eq-slip-ang-5}
+\end{eqnarray}
+The lateral forces are calculated as:
+\begin{equation}
+F_{yi} = C_i\alpha_i, i = 1, 2, ..., 5 \label{eq-tire-force-lat}
+\end{equation}
+
+
+\subsection{State-Space Formulations}
+We try to further simplify and rearrange all the above equations and come up with the following linear system represented by state-space equations:
+\begin{eqnarray}
+\bm{M} \bm{\dot{x}} &=& \bm{Ax} + \bm{Bu} \label{eq-SS-state}\\
+\bm{z} &=& \bm{Cx} \label{eq-SS-out}
+\end{eqnarray}
+Therefore, we will have to neglect the longitudinal dynamics, and only consider lateral and yaw motions of the tractor-trailer system, which now has three degrees of freedom. 
+For control development, the longitudinal velocities of the two parts are treated as the same as long as $\Delta$ is small to further simplify the system equations. Hence, \eqref{eq-hitch-vx} becomes
+\begin{equation}
+\dot{x}_1 \approx \dot{x}_2 \label{eq-hitch-vx-simple}
+\end{equation}
+The longitudinal velocity is a time-varying parameter, which makes the system linear time-varying (LTV).
+\subsubsection{Lateral Dynamics Model}
+The state vector defined in many previous work is 
+$\bm{x} = \begin{bmatrix}
+	\dot{y}_1 & \dot{\psi}_1 & \dot{\Delta} & \Delta
+    \end{bmatrix}^{T}$.
+In this case, the main control objective is vehicle stabilization, while the path-following part is accomplished by the human driver. Input vector is 
+$\bm{u} = \begin{bmatrix}
+	\delta & M_{z1} & M_{z2}
+    \end{bmatrix}^{T}$.
+
+\begin{align*}
+  	\bm{M} = &\begin{bmatrix}
+	m_1 + m_2 & -m_2(l_6 + l_7) & m_2 l_7 & 0 \\
+	m_1 l_6 & I_1 & 0 & 0\\
+	m_2 l_7 & -(I_2 + m_2 l_6 l_7 + m_2 {l_7}^2) & I_2 + m_2 {l_7}^2 & 0\\
+	0 & 0 & 0 & 1
+    \end{bmatrix}\\
+  	\bm{A} = &\begin{bmatrix}
+	-\frac{\sum C_i}{\dot{x}_1} & -(m_1+m_2)\dot{x}_1-\frac{a_{12}}{\dot{x}_1} & -\frac{a_{13}}{\dot{x}_1} & -(C_4 + C_5) \\
+	\frac{a_{21}}{\dot{x}_1} & -m_1 l_6\dot{x}_1-\frac{a_{22}}{\dot{x}_1} & 0 & 0\\
+	-\frac{a_{13}}{\dot{x}_1} & -m_2 l_7 \dot{x}_1 + (l_6 + l_7)\frac{a_{13}}{\dot{x}_1} + \frac{a_{32}}{\dot{x}_1} & -l_7 \frac{a_{13}}{\dot{x}_1} - \frac{a_{32}}{\dot{x}_1} & -a_{13}\\
+	0 & 0 & 1 & 0
+    \end{bmatrix}\\    
+  	\bm{B} = &\begin{bmatrix}
+	C_1 & 0 & 0 \\
+	C_1(l_1 + l_6) & 1 & 0\\
+	0 & 0 & -1\\
+	0 & 0 & 0
+    \end{bmatrix}\\  
+    a_{12} = & C_1 l_1 - C_2 l_2 - C_3 l_3 - C_4 l_4 - C_5 l_5 - (C_4 + C_5)(l_6 + l_7)\\
+    a_{13} = & C_4 l_4 + C_5 l_5 + C_4 l_7 + C_5 l_7\\
+    a_{21} = & -C_1(l_1 + l_6) + C_2(l_2 - l_6) + C_3(l_3 - l_6)\\
+    a_{22} = & C_1 l_1(l_1 + l_6) + C_2 l_2(l_2 - l_6) + C_3 l_3(l_3 - l_6)\\
+    a_{32} = & C_4l_4(l_4 + l_7) + C_5l_5(l_5 + l_7)
+\end{align*}
+%* denote entries to be further derived.
+
+\subsubsection{Augmented System}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{placeholder} % Include the image placeholder.png
+\caption{Placeholder for Path-Following Errors}\label{fig-path-error}
+\end{center}
+\end{figure}
+
+For autonomous trucks, the path-following (or trajectory tracking) problem is to be solved on-line by the computer programs. We need to augment the system with the path-following errors, i.e., $\bm{x} = \begin{bmatrix}
+	\dot{y}_1 & \dot{\psi}_1 & \dot{\Delta} & \Delta & e_{y1} & e_{\psi 1}
+    \end{bmatrix}$.
+
+\subsubsection{Longitudinal Dynamics Model}
+Combining \eqref{eq-tractor-lon}, \eqref{eq-trailer-lon}, and the simlification in \eqref{eq-hitch-vx-simple}, the longitudinal state space model is as follows.
+
+\begin{eqnarray}
+(m_1 + m_2) \ddot{x} - m_1 \dot{y}_1 \dot{\psi}_1 - m_2 \dot{y}_2 \dot{\psi}_2 = \sum_{}^{} F_{xi} - F_{r1} - F_{r2} \label{eq-SS-lon}
+\end{eqnarray}
+
+\subsection{Actuator Model}
+Actuator models map the input commands/signals to the road wheel steering angle and torques. Since the powertrain and driveline of the tractor are very complicated, it is promising to use data-driven modeling techniques to get this mapping. The remaining questions are: 1) what inputs are involved; 2) how to get the output values, i.e., angles, torques, forces of the road wheels.
+
+The first question is more straightforward: we can simply throw in whatever might affect the outputs. For example, hand-wheel steering angle, throttle/brake pedal positions, engine speed, gear ratio, vehicle speed, etc. The second problem will have to be solved by applying optimization utilizing the vehicle dynamics model. In other words, we will estimate the force terms from all the available vehicle dynamics signals and the model developed in the previous sections. However, how can we make sure that the vehicle dynamics model is accurate enough?
+
+One remedy is to carefully design experiments, or calibration process, to decouple a big model to several smaller ones, and to minimize disturbance. For example, going straight-line on a flat ground a few times at various acceleration/deceleration levels may give us good enough data to train the driving/braking models, since the force terms can simply be estimated using $F = ma$.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+
+\section{Control System}
+\subsection{Control Objectives}
+(1) Minimize the lateral offsets for both tractor and trailer\\
+(2) Maintain vehicle stability\\
+(3) Keep articulation angle and its rate of change small\\
+(4) Track desired speed profile for fuel efficiency (optional)
+
+\subsection{Controllability and Observability}
+
+\subsection{Problem Statement}
+(1) Given the target path information, control the steering angle to satisfy the objectives?
+%\begin{tabular}{ll}
+%Mass of magnesium metal & = \SI{8.59}{\gram} - \SI{7.28}{\gram}\\
+%& = \SI{1.31}{\gram}\\
+%Mass of magnesium oxide & = \SI{9.46}{\gram} - \SI{7.28}{\gram}\\
+%& = \SI{2.18}{\gram}\\
+%Mass of oxygen & = \SI{2.18}{\gram} - \SI{1.31}{\gram}\\
+%& = \SI{0.87}{\gram}
+%\end{tabular}
+%
+%Because of this reaction, the required ratio is the atomic weight of magnesium: \SI{16.00}{\gram} of oxygen as experimental mass of Mg: experimental mass of oxygen or $\frac{x}{1.31}=\frac{16}{0.87}$ from which, $M_{\ce{Mg}} = 16.00 \times \frac{1.31}{0.87} = 24.1 = \SI{24}{\gram\per\mole}$ (to two significant figures).
+
+%----------------------------------------------------------------------------------------
+%	SECTION 4
+%----------------------------------------------------------------------------------------
+
+\section{Simulations}
+
+%The atomic weight of magnesium is concluded to be \SI{24}{\gram\per\mol}, as determined by the stoichiometry of its chemical combination with oxygen. This result is in agreement with the accepted value.
+%
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=0.65\textwidth]{placeholder} % Include the image placeholder.png
+%\caption{Figure caption.}
+%\end{center}
+%\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 5
+%----------------------------------------------------------------------------------------
+
+\section{Experiments}
+\subsection{Design of Experiments}
+For model training purposes, the following maneuvers are necessary. 
+
+1) Straight-line coast down from high speed.
+
+2) Straight-line acceleration from different initial speed to different final speed at different throttle opening.
+
+3) Straight-line deceleration from different initial speed to different final speed at different brake effort.
+
+%The accepted value (periodic table) is \SI{24.3}{\gram\per\mole} \cite{Smith:2012qr}. The percentage discrepancy between the accepted value and the result obtained here is 1.3\%. Because only a single measurement was made, it is not possible to calculate an estimated standard deviation.
+%
+%The most obvious source of experimental uncertainty is the limited precision of the balance. Other potential sources of experimental uncertainty are: the reaction might not be complete; if not enough time was allowed for total oxidation, less than complete oxidation of the magnesium might have, in part, reacted with nitrogen in the air (incorrect reaction); the magnesium oxide might have absorbed water from the air, and thus weigh ``too much." Because the result obtained is close to the accepted value it is possible that some of these experimental uncertainties have fortuitously cancelled one another.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 6
+%----------------------------------------------------------------------------------------
+
+\section{Conclusions}
+
+%\begin{enumerate}
+%\begin{item}
+%The \emph{atomic weight of an element} is the relative weight of one of its atoms compared to C-12 with a weight of 12.0000000$\ldots$, hydrogen with a weight of 1.008, to oxygen with a weight of 16.00. Atomic weight is also the average weight of all the atoms of that element as they occur in nature.
+%\end{item}
+%\begin{item}
+%The \emph{units of atomic weight} are two-fold, with an identical numerical value. They are g/mole of atoms (or just g/mol) or amu/atom.
+%\end{item}
+%\begin{item}
+%\emph{Percentage discrepancy} between an accepted (literature) value and an experimental value is
+%\begin{equation*}
+%\frac{\mathrm{experimental\;result} - \mathrm{accepted\;result}}{\mathrm{accepted\;result}}
+%\end{equation*}
+%\end{item}
+%\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\medskip
+ 
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+%----------------------------------------------------------------------------------------
+
+
+\end{document}

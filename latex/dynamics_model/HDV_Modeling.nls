@@ -1,0 +1,75 @@
+\begin{thenomenclature} 
+
+ \nomgroup{A}
+
+  \item [{$\alpha_i$}]\begingroup Lumped tire slip angle of the ith axle ($i = 1, 2, ..., 5$)   \nomunit{$rad$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$\Delta$}]\begingroup Articulation angle between tractor and trailer   \nomunit{$rad$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$\delta$}]\begingroup Lumped steering angle   \nomunit{$rad$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$\dot{x}_1$}]\begingroup Longitudinal velocity of tractor in the tractor's frame   \nomunit{$m/s$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$\dot{x}_2$}]\begingroup Longitudinal velocity of trailer in the trailer's frame   \nomunit{$m/s$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$\dot{y}_1$}]\begingroup Lateral velocity of tractor in the tractor's frame   \nomunit{$m/s$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$\dot{y}_2$}]\begingroup Lateral velocity of trailer in the trailer's frame   \nomunit{$m/s$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$\psi_1$}]\begingroup Yaw angle of the tractor   \nomunit{$rad$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$\psi_2$}]\begingroup Yaw angle of the trailer   \nomunit{$rad$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$a_{x1}$}]\begingroup Longitudinal acceleration of the tractor   \nomunit{$m/s^2$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$a_{x2}$}]\begingroup Longitudinal acceleration of the trailer   \nomunit{$m/s^2$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$a_{y1}$}]\begingroup Lateral acceleration of the tractor   \nomunit{$m/s^2$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$a_{y2}$}]\begingroup Lateral acceleration of the trailer   \nomunit{$m/s^2$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$F_a$}]\begingroup Aerodynamic drag force   \nomunit{$N$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$F_f$}]\begingroup Rolling resistance force   \nomunit{$N$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$F_g$}]\begingroup Component of gravitational force on the slope   \nomunit{$N$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$F_r$}]\begingroup Lumped resistance force   \nomunit{$N$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$F_{xi}$}]\begingroup Longitudinal force of the ith axle ($i = 1, 2, ..., 5$)   \nomunit{$N$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$F_{yi}$}]\begingroup Lateral force of the ith axle ($i = 1, 2, ..., 5$)   \nomunit{$N$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$M_{z1}$}]\begingroup Yaw moment on the tractor   \nomunit{$Nm$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$M_{z2}$}]\begingroup Yaw moment on the trailer   \nomunit{$Nm$}\nomeqref {0}
+		\nompageref{1}
+
+ \nomgroup{B}
+
+  \item [{$g$}]\begingroup Gravitational Acceleration   \nomunit{$9.81\, m/s^2$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$I_1$}]\begingroup Tractor yaw moment of inertia   \nomunit{$52,000\, kg \cdot m^2$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$I_2$}]\begingroup Trailer yaw moment of inertia   \nomunit{$39,290\, kg \cdot m^2$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$l_1$}]\begingroup Distance from tractor CG to the steering axle   \nomunit{$2.59\, m$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$l_2$}]\begingroup Distance from tractor CG to the front tandem axle   \nomunit{$2.70\, m$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$l_3$}]\begingroup Distance from tractor CG to the rear tandem axle   \nomunit{$4.02\, m$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$l_4$}]\begingroup Distance from trailer CG to the first trailer rear axle   \nomunit{$4.17\, m$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$l_5$}]\begingroup Distance from trailer CG to the second trailer rear axle   \nomunit{$5.41\, m$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$l_6$}]\begingroup Distance from the 5th wheel hitch to tractor CG   \nomunit{$3.36\, m$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$l_7$}]\begingroup Distance from the 5th wheel hitch to trailer CG   \nomunit{$6.32\, m$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$m_1$}]\begingroup Tractor mass   \nomunit{$9,000\, kg$}\nomeqref {0}
+		\nompageref{1}
+  \item [{$m_2$}]\begingroup Trailer mass   \nomunit{$6,800\, kg$}\nomeqref {0}
+		\nompageref{1}
+
+\end{thenomenclature}

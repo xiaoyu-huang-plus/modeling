@@ -1,0 +1,33 @@
+\nomenclatureentry{A$a_{x1}$@[{$a_{x1}$}]\begingroup Longitudinal acceleration of the tractor   \nomunit{$m/s^2$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$a_{x2}$@[{$a_{x2}$}]\begingroup Longitudinal acceleration of the trailer   \nomunit{$m/s^2$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$a_{y1}$@[{$a_{y1}$}]\begingroup Lateral acceleration of the tractor   \nomunit{$m/s^2$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$a_{y2}$@[{$a_{y2}$}]\begingroup Lateral acceleration of the trailer   \nomunit{$m/s^2$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\dot{x}_1$@[{$\dot{x}_1$}]\begingroup Longitudinal velocity of tractor in the tractor's frame   \nomunit{$m/s$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\dot{x}_2$@[{$\dot{x}_2$}]\begingroup Longitudinal velocity of trailer in the trailer's frame   \nomunit{$m/s$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\dot{y}_1$@[{$\dot{y}_1$}]\begingroup Lateral velocity of tractor in the tractor's frame   \nomunit{$m/s$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\dot{y}_2$@[{$\dot{y}_2$}]\begingroup Lateral velocity of trailer in the trailer's frame   \nomunit{$m/s$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\psi_1$@[{$\psi_1$}]\begingroup Yaw angle of the tractor   \nomunit{$rad$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\psi_2$@[{$\psi_2$}]\begingroup Yaw angle of the trailer   \nomunit{$rad$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$F_{xi}$@[{$F_{xi}$}]\begingroup Longitudinal force of the ith axle ($i = 1, 2, ..., 5$)   \nomunit{$N$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$F_{yi}$@[{$F_{yi}$}]\begingroup Lateral force of the ith axle ($i = 1, 2, ..., 5$)   \nomunit{$N$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$F_r$@[{$F_r$}]\begingroup Lumped resistance force   \nomunit{$N$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$F_a$@[{$F_a$}]\begingroup Aerodynamic drag force   \nomunit{$N$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$F_f$@[{$F_f$}]\begingroup Rolling resistance force   \nomunit{$N$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$F_g$@[{$F_g$}]\begingroup Component of gravitational force on the slope   \nomunit{$N$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$M_{z1}$@[{$M_{z1}$}]\begingroup Yaw moment on the tractor   \nomunit{$Nm$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$M_{z2}$@[{$M_{z2}$}]\begingroup Yaw moment on the trailer   \nomunit{$Nm$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\Delta$@[{$\Delta$}]\begingroup Articulation angle between tractor and trailer   \nomunit{$rad$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\delta$@[{$\delta$}]\begingroup Lumped steering angle   \nomunit{$rad$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\alpha_i$@[{$\alpha_i$}]\begingroup Lumped tire slip angle of the ith axle ($i = 1, 2, ..., 5$)   \nomunit{$rad$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$g$@[{$g$}]\begingroup Gravitational Acceleration   \nomunit{$9.81\, m/s^2$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$m_1$@[{$m_1$}]\begingroup Tractor mass   \nomunit{$9,000\, kg$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$m_2$@[{$m_2$}]\begingroup Trailer mass   \nomunit{$6,800\, kg$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$I_1$@[{$I_1$}]\begingroup Tractor yaw moment of inertia   \nomunit{$52,000\, kg \cdot m^2$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$I_2$@[{$I_2$}]\begingroup Trailer yaw moment of inertia   \nomunit{$39,290\, kg \cdot m^2$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$l_1$@[{$l_1$}]\begingroup Distance from tractor CG to the steering axle   \nomunit{$2.59\, m$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$l_2$@[{$l_2$}]\begingroup Distance from tractor CG to the front tandem axle   \nomunit{$2.70\, m$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$l_3$@[{$l_3$}]\begingroup Distance from tractor CG to the rear tandem axle   \nomunit{$4.02\, m$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$l_4$@[{$l_4$}]\begingroup Distance from trailer CG to the first trailer rear axle   \nomunit{$4.17\, m$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$l_5$@[{$l_5$}]\begingroup Distance from trailer CG to the second trailer rear axle   \nomunit{$5.41\, m$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$l_6$@[{$l_6$}]\begingroup Distance from the 5th wheel hitch to tractor CG   \nomunit{$3.36\, m$}\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$l_7$@[{$l_7$}]\begingroup Distance from the 5th wheel hitch to trailer CG   \nomunit{$6.32\, m$}\nomeqref {0}|nompageref}{1}
